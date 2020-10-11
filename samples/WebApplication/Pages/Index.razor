@@ -1,0 +1,53 @@
+﻿@page "/"
+@using WebApplication.Interfaces
+@inject IValidInterface ValidInterface;
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?"/>
+
+<button @onclick="Test">Test</button>
+@(_result?.Number ?? 0)
+
+@code {
+    private TestObject _result;
+
+    public async Task Test()
+    {
+        var testObject = new TestObject
+        {
+            Number = 21,
+            Suturingu = "Bar",
+            Foo = new TestObject
+            {
+                Number = -1,
+                Suturingu = "Baz"
+            },
+            StringList = new List<string>
+            {
+                "a",
+                "b"
+            },
+            TestList = new List<TestObject>
+            {
+                new TestObject
+                {
+                    Number = -10,
+                    Suturingu = "Baz10"
+                },
+                new TestObject
+                {
+                    Number = -20,
+                    Suturingu = "Baz20"
+                }
+            }
+        };
+
+        testObject = await ValidInterface.InvokeAsync(testObject);
+        await ValidInterface.InvokeVoidAsync(testObject);
+        await ValidInterface.Empty("this is empty");
+    }
+
+}
