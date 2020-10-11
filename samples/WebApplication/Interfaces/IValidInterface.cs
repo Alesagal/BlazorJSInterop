@@ -12,7 +12,7 @@ namespace WebApplication.Interfaces
         [BlazorJSInteropMethod("invokeVoidAsync")]
         ValueTask InvokeVoidAsync(TestObject testObject);
 
-        [BlazorJSInteropMethod] // Method name will default to "empty".
+        [BlazorJSInteropMethod("empty")]
         ValueTask Empty(string s);
     }
 }
