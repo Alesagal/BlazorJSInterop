@@ -79,7 +79,7 @@ namespace {0}
                 if (!methodSymbol.ReturnType.IsTaskType())
                     throw new InterfaceMethodDoesNotHaveValidReturnType(interfaceFullName, methodSymbol.Name);
 
-                var jsMethodName = GetJavaScriptMethodName(methodSymbol);
+                var jsMethodName = GetJavaScriptFunctionName(methodSymbol);
 
                 var parametersTypeNameTuples = methodSymbol.Parameters
                     .Select(p => ($"{p.Type.ContainingNamespace}.{p.Type.Name}", p.Name))
@@ -124,17 +124,13 @@ namespace {0}
             return string.Format(ClassTemplate, interfaceNamespace, className, interfaceFullName, methodsCodeStringBuilder);
         }
 
-        private string GetJavaScriptMethodName(IMethodSymbol methodSymbol)
+        private string GetJavaScriptFunctionName(IMethodSymbol methodSymbol)
         {
             var attributeData = methodSymbol.GetAttributes().Single(ad =>
                 ad.AttributeClass.Equals(_methodAttributeSymbol, SymbolEqualityComparer.Default));
 
-            var methodName = attributeData.ConstructorArguments[0].Value?.ToString();
-
-            if (methodName == null)
-                methodName = string.Concat(char.ToLower(methodSymbol.Name[0]).ToString(), methodSymbol.Name.Substring(1));
-
-            return methodName;
+            var functionName = attributeData.ConstructorArguments[0].Value?.ToString();
+            return functionName;
         }
     }
 }

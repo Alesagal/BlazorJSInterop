@@ -5,11 +5,11 @@ namespace BlazorJSInterop.SourceGenerator.Attributes
     [AttributeUsage(AttributeTargets.Method)]
     public class BlazorJSInteropMethodAttribute : Attribute
     {
-        public string MethodName { get; }
+        public string FunctionName { get; }
 
-        public BlazorJSInteropMethodAttribute(string methodName = null)
+        public BlazorJSInteropMethodAttribute(string functionName)
         {
-            MethodName = methodName;
+            FunctionName = functionName;
         }
     }
 }
