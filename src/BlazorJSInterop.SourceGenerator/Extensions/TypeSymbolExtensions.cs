@@ -7,7 +7,7 @@ namespace BlazorJSInterop.SourceGenerator.Extensions
     {
         private static readonly string ValueTaskFullName = typeof(ValueTask).FullName;
 
-        internal static bool IsTaskType(this ITypeSymbol typeSymbol) =>
+        internal static bool IsValueTaskType(this ITypeSymbol typeSymbol) =>
             $"{typeSymbol.ContainingNamespace}.{typeSymbol.Name}" == ValueTaskFullName;
 
         internal static bool IsVoidValueTaskType(this ITypeSymbol typeSymbol) => typeSymbol.ToString() == ValueTaskFullName;
@@ -16,7 +16,7 @@ namespace BlazorJSInterop.SourceGenerator.Extensions
         {
             var typeFullName = typeSymbol.ToString();
 
-            if (IsTaskType(typeSymbol) && !IsVoidValueTaskType(typeSymbol))
+            if (IsValueTaskType(typeSymbol) && !IsVoidValueTaskType(typeSymbol))
                 return GetValueTaskGenericReturnTypeFullNameWithoutBraces(typeFullName);
             return null;
         }
