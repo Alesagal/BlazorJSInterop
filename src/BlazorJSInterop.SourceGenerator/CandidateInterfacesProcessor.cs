@@ -12,20 +12,20 @@ namespace BlazorJSInterop.SourceGenerator
     internal class CandidateInterfacesProcessor
     {
         private readonly SourceGeneratorContext _context;
-        private readonly List<InterfaceDeclarationSyntax> _interfaceDeclarationSyntaxes;
+        private readonly List<InterfaceDeclarationSyntax> _interfaceDeclarationSyntaxList;
         private readonly INamedTypeSymbol _interfaceAttributeSymbol;
         private readonly INamedTypeSymbol _methodAttributeSymbol;
         private readonly DiagnosticReporter _diagnosticReporter;
 
         internal CandidateInterfacesProcessor(
             SourceGeneratorContext context,
-            List<InterfaceDeclarationSyntax> interfaceDeclarationSyntaxes,
+            List<InterfaceDeclarationSyntax> interfaceDeclarationSyntaxList,
             INamedTypeSymbol interfaceAttributeSymbol,
             INamedTypeSymbol methodAttributeSymbol,
             DiagnosticReporter diagnosticReporter)
         {
             _context = context;
-            _interfaceDeclarationSyntaxes = interfaceDeclarationSyntaxes;
+            _interfaceDeclarationSyntaxList = interfaceDeclarationSyntaxList;
             _interfaceAttributeSymbol = interfaceAttributeSymbol;
             _methodAttributeSymbol = methodAttributeSymbol;
             _diagnosticReporter = diagnosticReporter;
@@ -39,7 +39,7 @@ namespace BlazorJSInterop.SourceGenerator
         {
             var validInterfaceInfoList = new List<ValidInterfaceInfo>();
 
-            foreach (var interfaceDeclarationSyntax in _interfaceDeclarationSyntaxes)
+            foreach (var interfaceDeclarationSyntax in _interfaceDeclarationSyntaxList)
             {
                 var model = _context.Compilation.GetSemanticModel(interfaceDeclarationSyntax.SyntaxTree);
                 var interfaceSymbol =
