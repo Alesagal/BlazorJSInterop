@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using BlazorJSInterop.SourceGenerator.Attributes;
 using BlazorJSInterop.SourceGenerator.Diagnostics;
@@ -22,25 +24,18 @@ namespace BlazorJSInterop.SourceGenerator
 
             var diagnosticReporter = new DiagnosticReporter(context);
 
-            var candidateInterfacesProcessor =
-                new CandidateInterfacesProcessor(interfaceAttributeSymbol, methodAttributeSymbol, diagnosticReporter);
+            var candidateInterfacesProcessor = new CandidateInterfacesProcessor(
+                context,
+                syntaxReceiver.CandidateInterfaces,
+                interfaceAttributeSymbol,
+                methodAttributeSymbol,
+                diagnosticReporter);
 
-            var validInterfaceInfoList = new List<ValidInterfaceInfo>();
-            foreach (var interfaceDeclarationSyntax in syntaxReceiver.CandidateInterfaces)
-            {
-                var model = context.Compilation.GetSemanticModel(interfaceDeclarationSyntax.SyntaxTree);
-                var interfaceSymbol =
-                    (INamedTypeSymbol) ModelExtensions.GetDeclaredSymbol(model, interfaceDeclarationSyntax);
+            var validInterfaceInfoList = candidateInterfacesProcessor.GetValidInterfaceInfoList();
 
-                if (!candidateInterfacesProcessor.IsCandidateInterface(interfaceSymbol))
-                    continue;
+            diagnosticReporter.ThrowIfReported();
 
-                validInterfaceInfoList.Add(
-                    candidateInterfacesProcessor.GetValidInterfaceInfo(interfaceDeclarationSyntax, interfaceSymbol,
-                        model));
-            }
-
-            var sourceCodeBuilder = new SourceCodeBuilder(interfaceAttributeSymbol);
+            var sourceCodeBuilder = new SourceCodeBuilder(methodAttributeSymbol);
 
             foreach (var validInterfaceInfo in validInterfaceInfoList)
             {
