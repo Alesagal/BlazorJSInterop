@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 
@@ -5,6 +6,7 @@ namespace BlazorJSInterop.SourceGenerator.Diagnostics
 {
     internal class DiagnosticReporter
     {
+        private bool _hasReported = false;
         private readonly SourceGeneratorContext _context;
 
         internal DiagnosticReporter(SourceGeneratorContext context)
@@ -19,6 +21,7 @@ namespace BlazorJSInterop.SourceGenerator.Diagnostics
             string issuedTypeName,
             ImmutableArray<Location> locations)
         {
+            _hasReported = true;
             _context.ReportDiagnostic(Diagnostic.Create(
                 "CSBLJS0001",
                 "Usage",
@@ -29,6 +32,11 @@ namespace BlazorJSInterop.SourceGenerator.Diagnostics
                 0,
                 location: locations[0]
             ));
+        }
+
+        internal void ThrowIfReported()
+        {
+            if (_hasReported) throw new Exception();
         }
     }
 }
