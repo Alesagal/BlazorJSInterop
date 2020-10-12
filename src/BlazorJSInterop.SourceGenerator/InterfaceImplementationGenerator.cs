@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BlazorJSInterop.SourceGenerator.Attributes;
+using BlazorJSInterop.SourceGenerator.Diagnostics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
@@ -19,8 +20,10 @@ namespace BlazorJSInterop.SourceGenerator
             var methodAttributeSymbol =
                 context.Compilation.GetTypeByMetadataName(typeof(BlazorJSInteropMethodAttribute).FullName);
 
+            var diagnosticReporter = new DiagnosticReporter(context);
+
             var candidateInterfacesProcessor =
-                new CandidateInterfacesProcessor(interfaceAttributeSymbol, methodAttributeSymbol);
+                new CandidateInterfacesProcessor(interfaceAttributeSymbol, methodAttributeSymbol, diagnosticReporter);
 
             var validInterfaceInfoList = new List<ValidInterfaceInfo>();
             foreach (var interfaceDeclarationSyntax in syntaxReceiver.CandidateInterfaces)
@@ -37,7 +40,7 @@ namespace BlazorJSInterop.SourceGenerator
                         model));
             }
 
-            var sourceCodeBuilder = new SourceCodeBuilder(interfaceAttributeSymbol, methodAttributeSymbol);
+            var sourceCodeBuilder = new SourceCodeBuilder(interfaceAttributeSymbol);
 
             foreach (var validInterfaceInfo in validInterfaceInfoList)
             {
@@ -45,7 +48,6 @@ namespace BlazorJSInterop.SourceGenerator
                 context.AddSource($"{validInterfaceInfo.InterfaceNamespace}.{validInterfaceInfo.InterfaceName}",
                     SourceText.From(sourceCode, Encoding.UTF8));
             }
-
         }
 
         public void Initialize(InitializationContext context)

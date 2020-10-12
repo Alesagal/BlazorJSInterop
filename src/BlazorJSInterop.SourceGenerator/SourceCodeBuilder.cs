@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Text;
-using BlazorJSInterop.SourceGenerator.Exceptions;
 using BlazorJSInterop.SourceGenerator.Extensions;
 using Microsoft.CodeAnalysis;
 
@@ -59,9 +58,7 @@ namespace {0}
 
         private readonly INamedTypeSymbol _methodAttributeSymbol;
 
-        internal SourceCodeBuilder(
-            INamedTypeSymbol interfaceAttributeSymbol,
-            INamedTypeSymbol methodAttributeSymbol)
+        internal SourceCodeBuilder(INamedTypeSymbol methodAttributeSymbol)
         {
             _methodAttributeSymbol = methodAttributeSymbol;
         }
@@ -76,9 +73,6 @@ namespace {0}
 
             foreach (var methodSymbol in validInterfaceInfo.MethodSymbols)
             {
-                if (!methodSymbol.ReturnType.IsTaskType())
-                    throw new InterfaceMethodDoesNotHaveValidReturnType(interfaceFullName, methodSymbol.Name);
-
                 var jsMethodName = GetJavaScriptFunctionName(methodSymbol);
 
                 var parametersTypeNameTuples = methodSymbol.Parameters
