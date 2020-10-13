@@ -10,7 +10,7 @@ namespace BlazorJSInterop.SourceGenerator
 {
     internal class DependencyInjector
     {
-        internal void CreateImplementations(WebAssemblyHostBuilder builder, Assembly assembly)
+        internal void RegisterIntoDependencyInjection(WebAssemblyHostBuilder builder, Assembly assembly)
         {
             var interfaceImplementationDictionary = GetInterfaceImplementationDictionary(assembly);
             foreach (var (interfaceType, generatedType) in interfaceImplementationDictionary)
