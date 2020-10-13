@@ -1,53 +1,29 @@
 ﻿@page "/"
 @using WebApplication.Interfaces
-@inject IValidInterface ValidInterface;
+@inject IJSService JSService;
 
-<h1>Hello, world!</h1>
+<p>Your name is @_name</p>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
-
-<button @onclick="Test">Test</button>
-@(_result?.Number ?? 0)
+<button @onclick="ShowHelloWorldAlert">Show Hello World Alert</button>
+<button @onclick="ShowNamePrompt">Show Name Prompt</button>
+<button @onclick="ShowNameAlert">Show Name Alert</button>
 
 @code {
-    private TestObject _result;
+    private const string Title = "Please enter your name:";
+    private string _name = string.Empty;
 
-    public async Task Test()
+    private async Task ShowHelloWorldAlert()
     {
-        var testObject = new TestObject
-        {
-            Number = 21,
-            Suturingu = "Bar",
-            Foo = new TestObject
-            {
-                Number = -1,
-                Suturingu = "Baz"
-            },
-            StringList = new List<string>
-            {
-                "a",
-                "b"
-            },
-            TestList = new List<TestObject>
-            {
-                new TestObject
-                {
-                    Number = -10,
-                    Suturingu = "Baz10"
-                },
-                new TestObject
-                {
-                    Number = -20,
-                    Suturingu = "Baz20"
-                }
-            }
-        };
-
-        testObject = await ValidInterface.InvokeAsync(testObject);
-        await ValidInterface.InvokeVoidAsync(testObject);
-        await ValidInterface.Empty("this is empty");
+        await JSService.ShowHelloWorldAlert();
     }
 
+    private async Task ShowNamePrompt()
+    {
+        _name = await JSService.ShowNamePrompt(Title);
+    }
+
+    private async Task ShowNameAlert()
+    {
+        await JSService.ShowNameAlert(_name ?? string.Empty);
+    }
 }

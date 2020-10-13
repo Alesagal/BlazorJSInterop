@@ -8,7 +8,7 @@ namespace BlazorJSInterop.SourceGenerator.Extensions
         public static void AddJSInteropImplementations(this WebAssemblyHostBuilder builder, Assembly assembly)
         {
             var dependencyInjector = new DependencyInjector();
-            dependencyInjector.CreateImplementations(builder, assembly);
+            dependencyInjector.RegisterIntoDependencyInjection(builder, assembly);
         }
     }
 }
