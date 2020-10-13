@@ -22,10 +22,11 @@ namespace BlazorJSInterop.SourceGenerator.Diagnostics
             ImmutableArray<Location> locations)
         {
             _hasReported = true;
+            var (code, message) = diagnosticType.GetErrorCodeMessageTuple();
             _context.ReportDiagnostic(Diagnostic.Create(
-                "CSBLJS0001",
+                code,
                 "Usage",
-                string.Format(diagnosticType.GetErrorMessage(), methodName, interfaceFullName, issuedTypeName),
+                string.Format(message, methodName, interfaceFullName, issuedTypeName),
                 DiagnosticSeverity.Error,
                 DiagnosticSeverity.Error,
                 true,
