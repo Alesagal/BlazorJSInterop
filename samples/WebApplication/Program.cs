@@ -13,7 +13,10 @@ namespace WebApplication
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+            // Add this line to register the generated code into the dependency injection collection.
             builder.AddJSInteropImplementations(Assembly.GetExecutingAssembly());
+
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient

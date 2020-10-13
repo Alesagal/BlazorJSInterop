@@ -1,12 +1,11 @@
-function invokeAsync(testObject) {
-    testObject.number = -20;
-    return testObject;
+function showHelloWorldAlert() {
+    alert('Hello World!');
 }
 
-function invokeVoidAsync(testObject) {
-    console.log(testObject);
+function showNamePrompt(title) {
+    return prompt(title);
 }
 
-function empty(s) {
-    console.log('empty', s);
+function showNameAlert(name) {
+    alert(name);
 }
