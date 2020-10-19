@@ -53,4 +53,4 @@ public static async Task Main(string[] args)
 }
 ```
 
-5. Inject your interface into any of your files as you would do with any another service.
+5. Inject your interface into any of your files as you would do with any other service.
