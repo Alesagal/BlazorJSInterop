@@ -1,13 +1,15 @@
+using System.Runtime.CompilerServices;
 using System.Text;
 using BlazorJSInterop.SourceGenerator.Attributes;
 using BlazorJSInterop.SourceGenerator.Diagnostics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
+[assembly: InternalsVisibleTo("BlazorJSInterop.SourceGenerator.Test")]
 namespace BlazorJSInterop.SourceGenerator
 {
     [Generator]
-    internal class ImplementationGenerator : ISourceGenerator
+    internal class InterfaceImplementationGenerator : ISourceGenerator
     {
         public void Execute(SourceGeneratorContext context)
         {
@@ -22,7 +24,7 @@ namespace BlazorJSInterop.SourceGenerator
             var diagnosticReporter = new DiagnosticReporter(context);
 
             var candidateInterfacesProcessor = new CandidateInterfacesProcessor(
-                context,
+                context.Compilation,
                 syntaxReceiver.CandidateInterfaces,
                 interfaceAttributeSymbol,
                 methodAttributeSymbol,
