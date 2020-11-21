@@ -7,8 +7,7 @@ namespace BlazorJSInterop.SourceGenerator
 {
     internal class SourceCodeBuilder
     {
-        private const string ClassTemplate = @"
-using Microsoft.JSInterop;
+        private const string ClassTemplate = @"using Microsoft.JSInterop;
 using System.Threading.Tasks;
 using BlazorJSInterop.SourceGenerator.Attributes;
 
@@ -22,8 +21,7 @@ namespace {0}
         public {1}(IJSRuntime jsRuntime)
         {{
             _jsRuntime = jsRuntime;
-        }}
-{3}
+        }}{3}
     }}
 }}";
 
