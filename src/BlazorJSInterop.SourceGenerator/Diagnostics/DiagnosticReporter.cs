@@ -6,10 +6,11 @@ namespace BlazorJSInterop.SourceGenerator.Diagnostics
 {
     internal class DiagnosticReporter
     {
-        private bool _hasReported = false;
-        private readonly SourceGeneratorContext _context;
+        public bool HasReported { get; private set; } = false;
 
-        internal DiagnosticReporter(SourceGeneratorContext context)
+        private readonly GeneratorExecutionContext _context;
+
+        internal DiagnosticReporter(GeneratorExecutionContext context)
         {
             _context = context;
         }
@@ -21,7 +22,7 @@ namespace BlazorJSInterop.SourceGenerator.Diagnostics
             string issuedTypeName,
             ImmutableArray<Location> locations)
         {
-            _hasReported = true;
+            HasReported = true;
             var (code, message) = diagnosticType.GetErrorCodeMessageTuple();
             _context.ReportDiagnostic(Diagnostic.Create(
                 code,
@@ -33,11 +34,6 @@ namespace BlazorJSInterop.SourceGenerator.Diagnostics
                 0,
                 location: locations[0]
             ));
-        }
-
-        internal void ThrowIfReported()
-        {
-            if (_hasReported) throw new Exception();
         }
     }
 }
