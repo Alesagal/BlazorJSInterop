@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using BlazorJSInterop.SourceGenerator.Attributes;
 
-namespace WebApplication.Interfaces
+namespace WebApplication.JSInterfaces
 {
     [BlazorJSInteropSource]
     public interface IJSService

@@ -1,14 +1,12 @@
 # BlazorJSInterop
 This is a Blazor library that uses .NET source generators in order to create implementations of JS Service files and include them into the dependency injection collection.
 
-**IMPORTANT:**
-This project is still WIP and has not been uploaded to NuGet yet. I will update this file once it is done.
-
 ## Using the library
-1. Include the source generator as a dependency into your Blazor project file. It is important to keep ```ReferenceOutputAssembly``` to true as there are some dependencies of this assembly that will be needed in your project.
-TODO: Once the package is uploaded to NuGet, I will update how to use it.
+1. Include the source generator as a dependency into your Blazor project file.
 ```xml
-<ProjectReference Include="..\..\src\BlazorJSInterop.SourceGenerator\BlazorJSInterop.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+<ItemGroup>
+    <PackageReference Include="BlazorJSInterop.SourceGenerator" Version="0.1.0" />
+</ItemGroup>
 ```
 
 2. Prototype your service interfaces using the ```BlazorJSInteropSource``` attribute in the interface and the ```BlazorJSInteropMethod``` attributes in all its methods.
@@ -54,3 +52,9 @@ public static async Task Main(string[] args)
 ```
 
 5. Inject your interface into any of your files as you would do with any other service.
+
+## Testing the library locally as a project reference
+1. If you want to test this project locally as a project reference, it is important to keep ```ReferenceOutputAssembly``` to true as there are some dependencies of this assembly that will be needed in your project.
+```xml
+<ProjectReference Include="..\..\src\BlazorJSInterop.SourceGenerator\BlazorJSInterop.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
+```

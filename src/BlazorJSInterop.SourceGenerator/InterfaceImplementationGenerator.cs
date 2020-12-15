@@ -11,7 +11,7 @@ namespace BlazorJSInterop.SourceGenerator
     [Generator]
     internal class InterfaceImplementationGenerator : ISourceGenerator
     {
-        public void Execute(SourceGeneratorContext context)
+        public void Execute(GeneratorExecutionContext context)
         {
             if (!(context.SyntaxReceiver is SyntaxReceiver syntaxReceiver))
                 return;
@@ -32,7 +32,8 @@ namespace BlazorJSInterop.SourceGenerator
 
             var validInterfaceInfoList = candidateInterfacesProcessor.GetValidInterfaceInfoList();
 
-            diagnosticReporter.ThrowIfReported();
+            if (diagnosticReporter.HasReported)
+                return;
 
             var sourceCodeBuilder = new SourceCodeBuilder(methodAttributeSymbol);
 
@@ -44,7 +45,7 @@ namespace BlazorJSInterop.SourceGenerator
             }
         }
 
-        public void Initialize(InitializationContext context)
+        public void Initialize(GeneratorInitializationContext context)
         {
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
         }

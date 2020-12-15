@@ -1,4 +1,5 @@
 using System.Linq;
+using BlazorJSInterop.SourceGenerator.Diagnostics;
 using BlazorJSInterop.SourceGenerator.Test.Configuration;
 using Microsoft.CodeAnalysis;
 using Shouldly;
@@ -13,7 +14,7 @@ namespace BlazorJSInterop.SourceGenerator.Test
         {
             var source = TestData.ValidSource;
 
-            var generatorDiagnostics = GeneratorTestFactory.RunGenerator(source);
+            var generatorDiagnostics = GeneratorTestFactory.GetDiagnostics(source);
 
             generatorDiagnostics.Any(x => x.Severity == DiagnosticSeverity.Error).ShouldBeFalse();
         }
@@ -23,14 +24,16 @@ namespace BlazorJSInterop.SourceGenerator.Test
         {
             var source = TestData.InvalidSourceMissingMethodAttribute;
 
-            var generatorDiagnostics = GeneratorTestFactory.RunGenerator(source);
+            var generatorDiagnostics = GeneratorTestFactory.GetDiagnostics(source);
+
+            var (expectedErrorCode, _) = DiagnosticTypesTuples.MethodWithoutAttributeErrorTuple;
 
             generatorDiagnostics.Any(diagnostic =>
             {
-                return diagnostic.Id == "CSBLJS0001" &&
+                return diagnostic.Id == expectedErrorCode &&
                        diagnostic.GetMessage() ==
                        "Method 'ShowHelloWorldAlert' in interface 'BlazorJSInterop.SourceGenerator.Test.TestData.IJSService' does not have attribute 'BlazorJSInterop.SourceGenerator.Attributes.BlazorJSInteropMethodAttribute'";
-            }).ShouldBeTrue();generatorDiagnostics.Any(diagnostic => diagnostic.Id == "CSBLJS0001").ShouldBeTrue();
+            }).ShouldBeTrue();
         }
 
         [Fact]
@@ -38,26 +41,30 @@ namespace BlazorJSInterop.SourceGenerator.Test
         {
             var source = TestData.InvalidSourceWrongReturnType;
 
-            var generatorDiagnostics = GeneratorTestFactory.RunGenerator(source);
+            var generatorDiagnostics = GeneratorTestFactory.GetDiagnostics(source);
+
+            var (expectedErrorCode, _) = DiagnosticTypesTuples.MethodInvalidReturnTypeErrorTuple;
 
             generatorDiagnostics.Any(diagnostic =>
             {
-                return diagnostic.Id == "CSBLJS0002" &&
+                return diagnostic.Id == expectedErrorCode &&
                        diagnostic.GetMessage() ==
                        "Method 'ShowHelloWorldAlert' in interface 'BlazorJSInterop.SourceGenerator.Test.TestData.IJSService' does not have valid return type. It should be 'System.Threading.Tasks.ValueTask'";
             }).ShouldBeTrue();
         }
 
         [Fact]
-        public void ShouldFailGeneratorWithCode_CSBLJS0002_BecauseTaskT()
+        public void ShouldFailGeneratorWithCode_CSBLJS0002_BecauseTaskWithGenericType()
         {
             var source = TestData.InvalidSourceWrongReturnTypeT;
 
-            var generatorDiagnostics = GeneratorTestFactory.RunGenerator(source);
+            var generatorDiagnostics = GeneratorTestFactory.GetDiagnostics(source);
+
+            var (expectedErrorCode, _) = DiagnosticTypesTuples.MethodInvalidReturnTypeErrorTuple;
 
             generatorDiagnostics.Any(diagnostic =>
             {
-                return diagnostic.Id == "CSBLJS0002" &&
+                return diagnostic.Id == expectedErrorCode &&
                        diagnostic.GetMessage() ==
                        "Method 'ShowNamePrompt' in interface 'BlazorJSInterop.SourceGenerator.Test.TestData.IJSService' does not have valid return type. It should be 'System.Threading.Tasks.ValueTask'";
             }).ShouldBeTrue();
