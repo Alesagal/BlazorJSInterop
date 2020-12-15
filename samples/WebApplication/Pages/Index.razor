@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using WebApplication.Interfaces
+@using WebApplication.JSInterfaces
 @inject IJSService JSService;
 
 <p>Your name is @_name</p>
@@ -26,4 +26,5 @@
     {
         await JSService.ShowNameAlert(_name ?? string.Empty);
     }
+
 }
