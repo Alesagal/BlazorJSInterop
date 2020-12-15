@@ -1,5 +1,4 @@
 using System.Collections.Immutable;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using BlazorJSInterop.SourceGenerator.Attributes;
@@ -36,7 +35,7 @@ namespace BlazorJSInterop.SourceGenerator.Test.Configuration
             return compilation;
         }
 
-        internal static ImmutableArray<Diagnostic> RunGenerator(string source)
+        private static GeneratorDriverRunResult RunGenerator(string source)
         {
             var syntaxTree = CSharpSyntaxTree.ParseText(SourceText.From(source, Encoding.UTF8));
             var compilation = GetCompilation(source);
@@ -44,15 +43,15 @@ namespace BlazorJSInterop.SourceGenerator.Test.Configuration
             var generator = new InterfaceImplementationGenerator();
             var parseOptions = (CSharpParseOptions) syntaxTree.Options;
 
-            GeneratorDriver driver = new CSharpGeneratorDriver(
-                parseOptions,
-                ImmutableArray.Create<ISourceGenerator>(generator),
-                null,
-                ImmutableArray<AdditionalText>.Empty);
+            GeneratorDriver driver = CSharpGeneratorDriver.Create(new[] {generator}, parseOptions: parseOptions);
+            driver = driver.RunGenerators(compilation);
 
-            driver.RunFullGeneration(compilation, out var outputCompilation, out var generatorDiagnostics);
-
-            return generatorDiagnostics;
+            return driver.GetRunResult();
         }
+
+        internal static ImmutableArray<Diagnostic> GetDiagnostics(string source) => RunGenerator(source).Diagnostics;
+
+        internal static string GetGeneratedSourceCodeText(string source) =>
+            RunGenerator(source).Results[0].GeneratedSources[0].SourceText.ToString();
     }
 }
