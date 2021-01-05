@@ -6,7 +6,7 @@
 
     <PropertyGroup>
         <Title>BlazorJSInterop</Title>
-        <Version>0.1.0</Version>
+        <Version>1.0.0</Version>
         <Authors>Alesagal</Authors>
         <Description>Plugin to automatically generate implementations of service interfaces that contains methods that use the Blazor JSRuntime.</Description>
         <PackageProjectUrl>https://github.com/Alesagal/BlazorJSInterop</PackageProjectUrl>
@@ -14,7 +14,7 @@
         <RepositoryUrl>https://github.com/Alesagal/BlazorJSInterop.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>blazor</PackageTags>
-        <PackageReleaseNotes>Initial release of the package.</PackageReleaseNotes>
+        <PackageReleaseNotes>First official release of the package. No new changes applied.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
