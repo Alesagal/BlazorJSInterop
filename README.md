@@ -3,10 +3,9 @@ This is a Blazor library that uses .NET source generators in order to create imp
 
 ## Using the library
 1. Include the source generator as a dependency into your Blazor project file.
-```xml
-<ItemGroup>
-    <PackageReference Include="BlazorJSInterop.SourceGenerator" Version="0.1.0" />
-</ItemGroup>
+
+```text
+dotnet add package BlazorJSInterop.SourceGenerator --version 6.0.0
 ```
 
 2. Prototype your service interfaces using the ```BlazorJSInteropSource``` attribute in the interface and the ```BlazorJSInteropMethod``` attributes in all its methods.
@@ -33,7 +32,7 @@ public interface IJSService
 using BlazorJSInterop.SourceGenerator.Extensions;
 ```
 
-4. In your Main method in ```Program.cs``` include the following line ```builder.AddJSInteropImplementations(Assembly.GetExecutingAssembly());```.
+4. In your Main method in ```Program.cs``` include the following line ```builder.AddJSInteropImplementations(Assembly.GetExecutingAssembly());``` such as:
 ```c#
 public static async Task Main(string[] args)
 {
