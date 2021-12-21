@@ -6,7 +6,7 @@
 
     <PropertyGroup>
         <Title>BlazorJSInterop</Title>
-        <Version>6.0.0-RC2</Version>
+        <Version>6.0.0</Version>
         <Authors>Alesagal</Authors>
         <Description>Plugin to automatically generate implementations of service interfaces that contains methods that use the Blazor JSRuntime.</Description>
         <PackageProjectUrl>https://github.com/Alesagal/BlazorJSInterop</PackageProjectUrl>
@@ -14,7 +14,7 @@
         <RepositoryUrl>https://github.com/Alesagal/BlazorJSInterop.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>blazor aspnet javascript js</PackageTags>
-        <PackageReleaseNotes>Added support for .NET 6. Version aligned with ASP.NET Core. Fixed generator not being packed in RC1</PackageReleaseNotes>
+        <PackageReleaseNotes>Added support for .NET 6. Version aligned with ASP.NET Core.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
