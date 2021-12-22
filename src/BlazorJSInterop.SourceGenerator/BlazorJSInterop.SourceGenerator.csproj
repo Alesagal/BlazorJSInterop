@@ -6,7 +6,7 @@
 
     <PropertyGroup>
         <Title>BlazorJSInterop</Title>
-        <Version>6.0.0</Version>
+        <Version>6.0.1</Version>
         <Authors>Alesagal</Authors>
         <Description>Plugin to automatically generate implementations of service interfaces that contains methods that use the Blazor JSRuntime.</Description>
         <PackageProjectUrl>https://github.com/Alesagal/BlazorJSInterop</PackageProjectUrl>
@@ -14,13 +14,13 @@
         <RepositoryUrl>https://github.com/Alesagal/BlazorJSInterop.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>blazor aspnet javascript js</PackageTags>
-        <PackageReleaseNotes>Added support for .NET 6. Version aligned with ASP.NET Core.</PackageReleaseNotes>
+        <PackageReleaseNotes>Align with version 6.0.1</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
