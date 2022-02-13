@@ -1,4 +1,3 @@
-
 # BlazorJSInterop
 This is a Blazor library that uses .NET source generators in order to create implementations of JS Service files and include them into the dependency injection collection.
 
