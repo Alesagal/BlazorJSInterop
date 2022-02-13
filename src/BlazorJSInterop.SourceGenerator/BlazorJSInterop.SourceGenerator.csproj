@@ -7,7 +7,7 @@
 
     <PropertyGroup>
         <Title>BlazorJSInterop</Title>
-        <Version>6.0.2-RC1</Version>
+        <Version>6.0.2</Version>
         <Authors>Alesagal</Authors>
         <Description>Plugin to automatically generate implementations of service interfaces that contains methods that use the Blazor JSRuntime.</Description>
         <PackageProjectUrl>https://github.com/Alesagal/BlazorJSInterop</PackageProjectUrl>
