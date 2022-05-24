@@ -5,7 +5,7 @@ This is a Blazor library that uses .NET source generators in order to create imp
 1. Include the source generator as a dependency into your Blazor project file.
 
 ```text
-dotnet add package BlazorJSInterop.SourceGenerator --version 6.0.4
+dotnet add package BlazorJSInterop.SourceGenerator --version 6.0.5
 ```
 
 2. Prototype your service interfaces using the ```BlazorJSInteropSource``` attribute in the interface and the ```BlazorJSInteropMethod``` attributes in all its methods.
