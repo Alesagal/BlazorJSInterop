@@ -31,9 +31,9 @@ namespace BlazorJSInterop.SourceGenerator
             _diagnosticReporter = diagnosticReporter;
         }
 
-        internal bool IsCandidateInterface(INamedTypeSymbol interfaceSymbol) =>
+        private bool IsCandidateInterface(INamedTypeSymbol interfaceSymbol) =>
             interfaceSymbol.GetAttributes().Any(attributeData =>
-                attributeData.AttributeClass.Equals(_interfaceAttributeSymbol, SymbolEqualityComparer.Default));
+                attributeData.AttributeClass!.Equals(_interfaceAttributeSymbol, SymbolEqualityComparer.Default));
 
         internal List<ValidInterfaceInfo> GetValidInterfaceInfoList()
         {
@@ -65,10 +65,10 @@ namespace BlazorJSInterop.SourceGenerator
             {
                 var methodSymbol = model.GetDeclaredSymbol(method) as IMethodSymbol;
                 var interfaceFullName = $"{interfaceSymbol.ContainingNamespace}.{interfaceSymbol.Name}";
-                var methodName = methodSymbol.Name;
+                var methodName = methodSymbol!.Name;
 
                 if (methodSymbol.GetAttributes().Any(attributeData =>
-                    attributeData.AttributeClass.Equals(_methodAttributeSymbol, SymbolEqualityComparer.Default)))
+                    attributeData.AttributeClass!.Equals(_methodAttributeSymbol, SymbolEqualityComparer.Default)))
                 {
                     methodSymbols.Add(methodSymbol);
                 }

@@ -32,7 +32,7 @@ namespace BlazorJSInterop.SourceGenerator
                 var generatedImplementationAttribute =
                     (GeneratedImplementationAttribute) Attribute.GetCustomAttribute(generatedType,
                         typeof(GeneratedImplementationAttribute));
-                var interfaceType = generatedImplementationAttribute.InterfaceType;
+                var interfaceType = generatedImplementationAttribute!.InterfaceType;
                 interfaceImplementationDictionary.Add(interfaceType, generatedType);
             }
 

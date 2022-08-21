@@ -119,7 +119,7 @@ namespace {0}
         private string GetJavaScriptFunctionName(IMethodSymbol methodSymbol)
         {
             var attributeData = methodSymbol.GetAttributes().Single(ad =>
-                ad.AttributeClass.Equals(_methodAttributeSymbol, SymbolEqualityComparer.Default));
+                ad.AttributeClass!.Equals(_methodAttributeSymbol, SymbolEqualityComparer.Default));
 
             var functionName = attributeData.ConstructorArguments[0].Value?.ToString();
             return functionName;
