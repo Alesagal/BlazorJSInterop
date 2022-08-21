@@ -6,7 +6,7 @@ namespace BlazorJSInterop.SourceGenerator
 {
     internal class SyntaxReceiver : ISyntaxReceiver
     {
-        internal List<InterfaceDeclarationSyntax> CandidateInterfaces { get; } = new List<InterfaceDeclarationSyntax>();
+        internal List<InterfaceDeclarationSyntax> CandidateInterfaces { get; } = new();
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {

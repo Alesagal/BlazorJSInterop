@@ -17,9 +17,9 @@ namespace BlazorJSInterop.SourceGenerator
                 return;
 
             var interfaceAttributeSymbol =
-                context.Compilation.GetTypeByMetadataName(typeof(BlazorJSInteropSourceAttribute).FullName);
+                context.Compilation.GetTypeByMetadataName(typeof(BlazorJSInteropSourceAttribute).FullName!);
             var methodAttributeSymbol =
-                context.Compilation.GetTypeByMetadataName(typeof(BlazorJSInteropMethodAttribute).FullName);
+                context.Compilation.GetTypeByMetadataName(typeof(BlazorJSInteropMethodAttribute).FullName!);
 
             var diagnosticReporter = new DiagnosticReporter(context);
 
